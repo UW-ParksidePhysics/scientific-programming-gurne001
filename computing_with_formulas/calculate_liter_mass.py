@@ -21,6 +21,5 @@ for i in range(len(density_list)):
 name_list = ["Iron", "Air", "Gasoline", "Ice", "Human", "Silver", "Platinum"]
 
 for i in range(len(mass_list)):
-  mass_list[i] = f'{name_list[i]}: {mass_list[i]:.1f}' + " g/liter" #adds material name + formatting for better output
-
-print(mass_list)
+  mass_list[i] = f'{name_list[i]}: {mass_list[i]:.1f}' + " g/liter" #creates string w/ desired output incl units
+  print(mass_list[i])
