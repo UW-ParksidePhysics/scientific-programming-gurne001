@@ -1,0 +1,8 @@
+Temperature Data
+---------------------
+Fahrenheit Degrees: 67.2
+Fahrenheit Degrees: 66.0
+Fahrenheit Degrees: 78.9
+Fahrenheit Degrees: 102.1
+Fahrenheit Degrees: 32.0
+Fahrenheit Degrees: 87.8

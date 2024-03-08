@@ -7,4 +7,4 @@
 # import computing_with_formulas.calculate_gaussian_at_one_value
 # import computing_with_formulas.calculate_ball_drag_and_gravity
 # import computing_with_formulas.calculate_egg_cook_time
-import practice_functions
+# import practice_functions
