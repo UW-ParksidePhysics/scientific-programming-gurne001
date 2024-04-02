@@ -20,27 +20,29 @@ def piecewise_function(time, period):
   else:
     print("Error: Need 0 < t < period")
 
-n_list = [1, 3, 5, 10, 30, 100]
-alpha_list = [0.01, 0.25, 0.49]
-period = 2*pi
-time_list = []
-for a in alpha_list:
-  time_list.append(period*a)
 
-table = []
-for i in range(len(n_list)):
-  row_i = []
-  for j in range(len(alpha_list)):
-    row_i.append(piecewise_function(time_list[j], period) - sinusoidal_sum(time_list[j], n_list[i], period))
-    j += 1
-  table.append(row_i)
-  row_i.insert(0, n_list[i])
-  i += 1
-
-print("The error in approximation between S(t,n) and f(t) related to the corresponding values of n and t:")
-
-
-header_list = ['n', '.01T', ".025T", ".049T"]
-
-
-print(tabulate(table, headers=header_list, tablefmt="fancy_grid"))
+if __name__ == "__main__":
+  n_list = [1, 3, 5, 10, 30, 100]
+  alpha_list = [0.01, 0.25, 0.49]
+  period = 2*pi
+  time_list = []
+  for a in alpha_list:
+    time_list.append(period*a)
+  
+  table = []
+  for i in range(len(n_list)):
+    row_i = []
+    for j in range(len(alpha_list)):
+      row_i.append(piecewise_function(time_list[j], period) - sinusoidal_sum(time_list[j], n_list[i], period))
+      j += 1
+    table.append(row_i)
+    row_i.insert(0, n_list[i])
+    i += 1
+  
+  print("The error in approximation between S(t,n) and f(t) related to the corresponding values of n and t:")
+  
+  
+  header_list = ['n', '.01T', ".025T", ".049T"]
+  
+  
+  print(tabulate(table, headers=header_list, tablefmt="fancy_grid"))

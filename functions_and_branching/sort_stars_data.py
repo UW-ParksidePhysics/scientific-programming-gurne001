@@ -41,6 +41,7 @@ def sort_by_luminosity(a, b):
     return 0
 
 
+# sorted_by_distance = sorted(nearby_star_data, key=lambda star: star[1])
 sorted_by_distance = sorted(nearby_star_data, key=itemgetter(1))
 sorted_by_brightness = sorted(nearby_star_data, key=itemgetter(2))
 sorted_by_luminosity = sorted(nearby_star_data, key=itemgetter(3))
