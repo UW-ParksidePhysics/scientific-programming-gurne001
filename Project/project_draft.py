@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 
 #Goal is to evaluate simple multiloop circuit a la PHYS202; where there are 2 power sources, 3 resistors, and the power sources and resistance values are known.
 
+#Suggestion: Evaluate with values 'in' for all currents, e1=5, e2=10, r1=4, r2=3, r3=2
+
 #Establishes directions for proper input values for coming section
 print("Input current directions based on Node 1 layout for the purpose of circuit evaluation, please input 'in' or 'out'")
 
