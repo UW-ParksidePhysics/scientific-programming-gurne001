@@ -13,7 +13,7 @@ H = coefficient*A
 
 eigenvalues, eigenvectors = numpy.linalg.eig(H)
 print(eigenvectors)
-x_values =numpy.linspace(1/6, 5/6, 5)
+x_values = numpy.linspace(1/6, 5/6, 5)
 
 def comparison_function(x):
     f = sqrt(2)*sin(pi*x)
