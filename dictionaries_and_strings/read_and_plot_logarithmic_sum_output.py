@@ -20,9 +20,6 @@ def parse_sum_output(file):
     return tolerances, errors, maximum_indices
 
 
-print(parse_sum_output("logarithmic_sum.out"))
-
-
 def plot_logarithmic_sum_error(tolerances, errors, maximum_indices):
     plot_1 = plt.semilogy(maximum_indices, tolerances, label="Tolerance")
     plot_2 = plt.semilogy(maximum_indices, errors, label="Error")
