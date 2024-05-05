@@ -24,11 +24,14 @@ print(parse_sum_output("logarithmic_sum.out"))
 
 
 def plot_logarithmic_sum_error(tolerances, errors, maximum_indices):
-    plot_1 = plt.semilogy(maximum_indices, tolerances)
-    plot_2 = plt.semilogy(maximum_indices, errors)
+    plot_1 = plt.semilogy(maximum_indices, tolerances, label="Tolerance")
+    plot_2 = plt.semilogy(maximum_indices, errors, label="Error")
     return plot_1, plot_2
 
 
 if __name__ == "__main__":
     plot_logarithmic_sum_error(parse_sum_output("logarithmic_sum.out")[0], parse_sum_output("logarithmic_sum.out")[1], parse_sum_output("logarithmic_sum.out")[2])
+    plt.xlabel("Maximum Indices")
+    plt.title("Error and Tolerance for Logarithmic Sum")
+    plt.legend()
     plt.show()
