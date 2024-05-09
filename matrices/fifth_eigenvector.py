@@ -12,16 +12,19 @@ coefficient = 1/(2*((1/6)**2))
 H = coefficient*A
 
 eigenvalues, eigenvectors = numpy.linalg.eig(H)
+print(eigenvalues)
 print(eigenvectors)
 x_values = numpy.linspace(1/6, 5/6, 5)
+
 
 def comparison_function(x):
     f = sqrt(2)*sin(pi*x)
     return f
 
+
 comparison_x_values = numpy.linspace(0, 1, 50)
 comparison_y_values = comparison_function(comparison_x_values)
 
-matplotlib.pyplot.plot(x_values, eigenvectors[4])
+matplotlib.pyplot.plot(x_values, eigenvectors.T[0])
 matplotlib.pyplot.plot(comparison_x_values, comparison_y_values)
 matplotlib.pyplot.show()

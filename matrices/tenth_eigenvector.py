@@ -29,5 +29,5 @@ comparison_x_values = numpy.linspace(0, 1, 50)
 comparison_y_values = comparison_function(comparison_x_values)
 
 matplotlib.pyplot.plot(comparison_x_values, comparison_y_values)
-matplotlib.pyplot.plot(x_values, eigenvectors[9])
+matplotlib.pyplot.plot(x_values, eigenvectors.T[0])  # Include .T for purpose of graphing
 matplotlib.pyplot.show()
