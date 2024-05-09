@@ -133,7 +133,7 @@ def calculate_current_values(direction_values, voltage_values, resistance_values
         final_direction_values[2] = "in"
 
     current_amps = numpy.absolute(x)
-    current_amps = numpy.round(current_amps, 4)  # Final vector of current magnitudes, rounded
+    current_amps = numpy.round(current_amps, 4)  # final_exam vector of current magnitudes, rounded
   except ValueError:
     print("Error with input lists, please try again")
     print("direction_values = 1x3 'in'/'out' list\n")

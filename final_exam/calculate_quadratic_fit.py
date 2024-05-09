@@ -2,6 +2,7 @@ import numpy.polynomial
 from numpy import polynomial, linspace
 import sys
 
+
 def calculate_quadratic_fit(data):
     try:
         fit_polynomial = numpy.polynomial.polynomial.polyfit(data[0], data[1], 2)
