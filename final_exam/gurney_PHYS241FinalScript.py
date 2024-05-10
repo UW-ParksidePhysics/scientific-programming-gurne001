@@ -15,6 +15,7 @@ from generate_matrix import *
 
 
 def parse_file_name(filename):
+    """Takes filename of assigned dataset and returns the chemical symbol, symmetry symbol, and DFE acronymn as strings"""
     try:
         split_filename=str.split(filename, '.')
         chemical_symbol = split_filename[0]
@@ -30,7 +31,7 @@ def parse_file_name(filename):
 
 
 if __name__ == "__main__":
-    display_plot = False
+    display_plot = True
     chemical_symbol, crystal_symmetry_symbol, density_functional_exchange_acronym = parse_file_name("Au.Fm-3m.GGA-PBEsol.volumes_energies.dat")
     data = read_two_columns_text("Au.Fm-3m.GGA-PBEsol.volumes_energies.dat")
     statistics = calculate_bivariate_statistics(data)

@@ -1,8 +1,15 @@
+"""Module defines a function read_two_columns_text that reads a file that is formatted as
+two columns of floats/integer values and stores the data"""
+
+__author__ = "Tyler Gurney"
+
 import numpy
 import sys
 
 
 def read_two_columns_text(filename):
+    """Takes as input the filename (string) of file to be read, and returns the two
+    columns of data in a (2,M) dimensional array called data"""
     data = []
     x_data = []
     y_data = []

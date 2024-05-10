@@ -1,8 +1,16 @@
+"""Module defines a function that takes a square matrix and returns a list of the
+lowest n eigenvectors and their matching eigenvalues"""
+
+__author__ = "Tyler Gurney"
+
 from numpy import linalg, sort, array, argsort, matmul, allclose, ones, diag, linspace
 import sys
 
 
 def calculate_lowest_eigenvectors(square_matrix, number_of_eigenvectors=3):
+    """Takes as input a square matrix (raises error if matrix not square) and an integer representing the number of
+    eigenvectors/values to be stored in the list that is returned.
+    Returns a list of the lowest K (default K=3) eigenvalues, and their corresponding eigenvectors"""
     try:
         matrix_dimension = square_matrix.shape
         if matrix_dimension[0] != matrix_dimension[1]:

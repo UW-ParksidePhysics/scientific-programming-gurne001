@@ -1,9 +1,20 @@
+"""Module defines a function that serves to convert unit values between atomic units
+for volume, energy, and bulk modulus with corresponding values as defined in final exam assignment"""
+
+__author__ = "Tyler Gurney"
+
 import sys
 from scipy.constants import e, epsilon_0, m_e, h
 import numpy
 
 
 def convert_units(value, convert_from, convert_to):
+    """Takes as input the following:
+    value: float/int value representing the quantity of the input in the relevant input unit
+    convert_from: the unit that the input value is measured in
+    convert_to: the unit that the input value is being converted to. Redundant as scope of function didn't require
+    different options for conversion, all conversions can be dictated solely by input unit.
+    Function returns the value of the input after conversion to its corresponding unit."""
     try:
         convert_from_list = ["atomic_volume", "cubic_angstrom", "atomic_energy", "electron_volt", "atomic_modulus", "gigapascal"]
         if convert_from in convert_from_list:

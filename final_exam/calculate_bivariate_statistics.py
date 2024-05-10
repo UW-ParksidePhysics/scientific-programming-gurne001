@@ -1,3 +1,8 @@
+"""Module that defines a function, calculate_bivariate_statistics that calculates statistical values
+for a set of 2 dimensional data"""
+
+__author__ = "Tyler Gurney"
+
 from scipy import stats
 from read_two_columns_text import read_two_columns_text
 from numpy import sqrt, array, linspace
@@ -5,6 +10,8 @@ import sys
 
 
 def calculate_bivariate_statistics(data):
+    """Takes a (2,M) dimensional input array of float/int data, and returns a 6 dimensional list
+    statistics = [mean_y, stdev_y, min_x, max_x, min_y, max_y]"""
     try:
         statistics_list = []
         stats_array_x = stats.describe(data[0])
