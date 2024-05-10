@@ -11,6 +11,7 @@ import sys
 import matplotlib.pyplot as plt
 from numpy import amin, amax, min, max
 from datetime import *
+from generate_matrix import *
 
 
 def parse_file_name(filename):
@@ -29,6 +30,7 @@ def parse_file_name(filename):
 
 
 if __name__ == "__main__":
+    display_plot = False
     chemical_symbol, crystal_symmetry_symbol, density_functional_exchange_acronym = parse_file_name("Au.Fm-3m.GGA-PBEsol.volumes_energies.dat")
     data = read_two_columns_text("Au.Fm-3m.GGA-PBEsol.volumes_energies.dat")
     statistics = calculate_bivariate_statistics(data)
@@ -51,24 +53,65 @@ if __name__ == "__main__":
     plot_data_with_fit(converted_data, fit_curve, "bo", "black")
     x_axis_min = 0.9*converted_xmin
     x_axis_max = 1.1*converted_xmax
-    # y_axis_min = 0.9*converted_ymin
-    # y_axis_max = 1.1*converted_ymax
+    y_axis_min = -5.0859e4
+    y_axis_max = -5.08535e4
     plt.xlim(x_axis_min, x_axis_max)
-    # plt.ylim(y_axis_min, y_axis_max)
+    plt.ylim(y_axis_min, y_axis_max)
     # Fundamental issue with Parker's request to scale ylims by 10% of min/max y-values,
     # the scale of those values mean that the 10% scaling makes the graph unreadable
     date = date(2024, 5, 9).isoformat()
-    annotations_dictionary = {f'{chemical_symbol}':
-                                  {"position": (2,-5.085477e4), "alignment": ["left", "bottom"], "fontsize": 12},
-                              f'{crystal_symmetry_symbol}':
-                                  {"position": (2.45, -5.0856e4), "alignment": ["left", "bottom"], "fontsize": 12},
-                              f'K0 = {abs(round(quadratic_fit_coefficients[1],2))} GPa':
-                                  {"position": (2.4, -5.08555e4), "alignment": ["left", "bottom"], "fontsize": 12},
-                              f'V0 = {round(converted_data[0][3], 2)} A3/Atom':
-                                  {"position": (2.26, -5.0858365e4), "alignment": ["left", "top"], "fontsize": 8},
+    math_chemical_symbol = r'$Au$'
+    math_modulus = r'$K_0$ = ' + f'{round(eos_parameters[2],2)} GPa'
+    math_volume = r'$V_0$ = ' + f'{round(converted_data[0][3], 2)} ' + r'$\mathrm{\AA}^3$/atom'
+    math_symmetry_symbol = r'$Fm\bar3m$'
+    math_xlabel = r'$V = \mathrm{\AA}^3$/atom'
+    math_ylabel = r'$E = eV$/atom'
+    plt.xlabel(math_xlabel)
+    plt.ylabel(math_ylabel)
+    annotations_dictionary = {f'{math_chemical_symbol}':
+                                  {"position": (2,-5.085385e4), "alignment": ["left", "bottom"], "fontsize": 12},
+                              f'{math_symmetry_symbol}':
+                                  {"position": (2.45, -5.08545e4), "alignment": ["left", "bottom"], "fontsize": 12},
+                              f'{math_modulus}':
+                                  {"position": (2.4, -5.0854e4), "alignment": ["left", "bottom"], "fontsize": 12},
+                              f'{math_volume}':
+                                  {"position": (2.26, -5.08585e4), "alignment": ["left", "top"], "fontsize": 8},
                               f'Created by Tyler Gurney {date}':
-                                  {"position": (1.8, -5.085875e4), "alignment": ["left", "top"], "fontsize": 12}}
+                                  {"position": (1.8, -5.08595e4), "alignment": ["left", "top"], "fontsize": 10}}
 
     annotate_plot(annotations_dictionary)
     plt.title(f"Murnaghan Equation of State for {chemical_symbol} in DFT {density_functional_exchange_acronym}")
-    plt.show()
+    v0_marker_data = [[converted_data[0][5], converted_data[0][5]], [y_axis_min, converted_data[1][5]]]
+    plt.plot(v0_marker_data[0],v0_marker_data[1], color="black", linestyle="--")
+    if display_plot:
+        plt.show()
+    else:
+        plt.savefig("Gurney.Au.Fm-3m.GGA-PBEsol.MurnaghanEquationOfState.png")
+
+    # Part 2: Matrix Graph code
+    matrix = generate_matrix(-10, 10, 100, 'harmonic', 4)
+    low_values, low_vectors = calculate_lowest_eigenvectors(matrix, 5)
+    eigenvectors = [low_vectors[2], low_vectors[3], low_vectors[4]]
+    eigenvalues = [low_values[2], low_values[3], low_values[4]]
+    max_components = [amax(eigenvectors[0]), amax(eigenvectors[1]), amax(eigenvectors[2])]
+    max_value = amax(max_components)
+    y2_lim_max = 2*max_value
+    y2_lim_min = -2*max_value
+    colors = ["red", "green", "blue"]
+    x_grid = linspace(-10, 10, 100)
+    figure2, axes2 = plt.subplots()
+    for i in range(0,3):
+        label = fr'$\psi_{i+2}$, $E_{i+2}$ = {round(eigenvalues[i],3)}a.u.'
+        axes2.plot(x_grid, eigenvectors[i], label=label, color=colors[i])
+    axes2.set(xlabel='x [a.u.]', ylabel=r'$\psi_n (x)$[a.u.]',
+              title="Select Wavefunctions for Harmonic Potential on a Spatial Grid of 100 Points")
+    plt.axhline(color="black")
+    plt.ylim(y2_lim_min, y2_lim_max)
+    plt.legend(loc="upper right")
+    annotations_dictionary_2 = {f'Created by Tyler Gurney {date}':
+                                  {"position": (-13.5, -.325), "alignment": ["left", "top"], "fontsize": 10}}
+    annotate_plot(annotations_dictionary_2)
+    if display_plot:
+        plt.show()
+    else:
+        plt.savefig("Gurney.Harmonic.Eigenvector234.png")
